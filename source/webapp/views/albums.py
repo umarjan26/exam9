@@ -1,6 +1,10 @@
+from http import HTTPStatus
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
+from django.views import View
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from webapp.forms import AlbumForm
@@ -64,3 +68,37 @@ class AlbumDeleteView(PermissionRequiredMixin, DeleteView):
     def has_permission(self):
         album = get_object_or_404(Album, pk=self.kwargs.get('pk'))
         return super().has_permission() or self.request.user == album.author
+
+
+
+
+class AlbumSelectedView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        album = get_object_or_404(Album, pk=kwargs.get('pk'))
+
+        if request.user in album.selected.all():
+            return JsonResponse(
+                {"error": 'Уже в избранных'},
+                status=HTTPStatus.FORBIDDEN,
+            )
+
+        album.selected.add(request.user)
+        return JsonResponse(
+            {"Status": 'Selected'}
+        )
+
+
+class AlbumUnSelectedView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        album = get_object_or_404(Album, pk=kwargs.get('pk'))
+
+        if not request.user in album.selected.all():
+            return JsonResponse(
+                {"error": 'Надо сначало добавить'},
+                status=HTTPStatus.FORBIDDEN,
+            )
+
+        album.selected.remove(request.user)
+        return JsonResponse(
+            {"Status": 'UnSelected'}
+        )

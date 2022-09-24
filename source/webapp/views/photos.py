@@ -1,6 +1,8 @@
 import uuid
+from http import HTTPStatus
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
@@ -99,3 +101,38 @@ class PhotoLinkView(View):
             'photo': photo,
         }
         return render(request, 'photos/view.html', context)
+
+
+
+
+class PhotoSelectedView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        photo = get_object_or_404(Photo, pk=kwargs.get('pk'))
+
+        if request.user in photo.selected.all():
+            return JsonResponse(
+                {"error": 'Уже в избранных'},
+                status=HTTPStatus.FORBIDDEN,
+            )
+
+        photo.selected.add(request.user)
+        return JsonResponse(
+            {"Status": 'Selected'}
+        )
+
+
+class PhotoUnSelectedView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        photo = get_object_or_404(Photo, pk=kwargs.get('pk'))
+
+        if not request.user in photo.selected.all():
+            return JsonResponse(
+                {"error": 'Надо сначало добавить'},
+                status=HTTPStatus.FORBIDDEN,
+            )
+
+        photo.selected.remove(request.user)
+        return JsonResponse(
+            {"Status": 'UnSelected'}
+        )
+

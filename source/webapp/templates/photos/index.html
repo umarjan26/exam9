@@ -16,19 +16,37 @@
                 <div class="col my-2">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Фотография {{ photo.id }}</h5>
-                            <img class="avatar" src="{{ photo.photo.url }}" width="100%" height="200" alt="{{ photo.description }}">
-
-                            <h6 class="card-subtitle mb-2 mt-2 text-black">Подпись: {{ photo.description }}</h6>
-                            <h6 class="card-subtitle mb-2 mt-2 text-black">Автор: <a href="{% url 'accounts:detail' photo.author.pk %}">{{ photo.author.first_name }}</a> </h6>
-                            <h6 class="card-subtitle mb-2 mt-2 text-black">Дата создания: {{ photo.created_at }}</h6>
-
+                            <h5 class="card-title">Фотография# {{ photo.id }}</h5>
+                            <img class="avatar" src="{{ photo.photo.url }}" width="100%" height="200"
+                                 alt="{{ photo.description }}">
+                            <h6 class="card-subtitle mb-2 text-black">Подпись: {{ photo.description }}</h6>
+                            <h6 class="card-subtitle mb-2 text-black">Автор: <a
+                                    href="{% url 'accounts:detail' photo.author.pk %}">{{ photo.author.first_name }}</a>
+                            </h6>
+                            <h6 class="card-subtitle mb-2 text-black">Дата создания: {{ photo.created_at }}</h6>
                             {% if photo.album %}
-                                <h6 class="card-subtitle mb-2 mt-2 text-black">Альбом: <a href="{% url "webapp:album_view" photo.album.pk %}">{{ photo.album.title }}</a></h6>
+                                <h6 class="card-subtitle mb-2 text-black">Альбом: <a
+                                        href="{% url "webapp:album_view" photo.album.pk %}">{{ photo.album.title }}</a>
+                                </h6>
                             {% else %}
-                                <h6 class="card-subtitle mb-2 mt-2 text-black">Альбом: НЕТ </h6>
+                                <h6 class="card-subtitle mb-2 text-black">Альбом: НЕТ </h6>
                             {% endif %}
+                            {% if user.is_authenticated %}
+                                <p>Избранные</p>
+                                {% if user in photo.selected.all %}
+                                    <a class="select-link invisible" data-photo-id="{{ photo.pk }}"
+                                       href="{% url "webapp:select_photo" photo.pk %}">Добавить</a>
+                                    <a class="select-link " data-photo-id="{{ photo.pk }}"
+                                       href="{% url "webapp:unselect_photo" photo.pk %}">Удалить</a>
 
+                                {% else %}
+                                    <a class="select-link " data-photo-id="{{ photo.pk }}"
+                                       href="{% url "webapp:select_photo" photo.pk %}">Добавить</a>
+                                    <a class="select-link invisible" data-photo-id="{{ photo.pk }}"
+                                       href="{% url "webapp:unselect_photo" photo.pk %}">Удалить</a>
+
+                                {% endif %}
+                            {% endif %}
                             <a href="{% url "webapp:photo_view" photo.pk %}" class="text-danger">Подробнее</a>
                         </div>
                     </div>
@@ -36,4 +54,31 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        async function onClick(event) {
+            event.preventDefault();
+
+            const SelectLink = event.target;
+            response = await fetch(SelectLink.href);
+
+            let responseData = await response.json()
+
+            if (response.ok) {
+                const photoId = SelectLink.dataset.photoId;
+                for (SelectLinkToToggle of document.querySelectorAll(`a[data-photo-id="${photoId}"]`)) {
+                    SelectLinkToToggle.classList.toggle("invisible");
+                }
+            } else {
+                alert(responseData.error);
+            }
+        }
+
+        function onLoad() {
+            for (element of document.getElementsByClassName("select-link")) {
+                element.addEventListener("click", onClick);
+            }
+        }
+
+        window.addEventListener("load", onLoad);
+    </script>
 {% endblock %}
