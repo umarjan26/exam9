@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}
     Photo {{ photo.pk }}
 {% endblock %}
@@ -7,7 +8,7 @@
                 <a class="nav-link" href={% url 'webapp:photo_update' photo.pk %}>Изменить фотографию</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-danger" href={% url 'webapp:photo_delete' photo.pk %}>Удалить фото</a>
+                <a class="nav-link text-danger" href={% url 'webapp:photo_delete' photo.pk %}>Удалить фотографию</a>
             </li>
 {% endblock %}
 {% block content %}
@@ -16,12 +17,10 @@
             <h1 class="text-danger"> Просмотр фотографии {{ photo.id }}</h1>
         </div>
         <div>
-            <img class="avatar" src="{{ photo.photo.url }}" width="250" height="250" alt="{{ photo.description }}">
-
-            <h6 class="card-subtitle mb-2 text-black">описание: {{ photo.description }}</h6>
+            <img class="avatar" src="{{ photo.photo.url }}" width="250" height="200" alt="{{ photo.description }}">
+            <h6 class="card-subtitle mb-2 text-black">Подпись: {{ photo.description }}</h6>
             <h6 class="card-subtitle mb-2 text-black">Автор: {{ photo.author.first_name }}</h6>
             <h6 class="card-subtitle mb-2 text-black">Дата создания: {{ photo.created_at }}</h6>
-
             {% if photo.album %}
                 <h6 class="card-subtitle mb-2 text-black">Альбом: {{ photo.album.title }}</h6>
             {% else %}

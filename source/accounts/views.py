@@ -35,6 +35,18 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     template_name = 'accounts/user_detail.html'
     context_object_name = 'user_obj'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserDetailView, self).get_context_data(object_list=object_list, **kwargs)
+        pvivate_photos = self.object.photos.filter(isPrivate=True)
+        private_albums = self.object.albums.filter(isPrivate=True)
+        photos = self.object.photos.filter(isPrivate=False)
+        albums = self.object.albums.filter(isPrivate=False)
+        context['photos'] = photos
+        context['albums'] = albums
+        context['private_photos'] = pvivate_photos
+        context['private_albums'] = private_albums
+        return context
+
 
 class UpdateUserView(LoginRequiredMixin, UpdateView):
     model = User

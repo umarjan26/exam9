@@ -1,0 +1,25 @@
+                    {% extends 'base.html' %}
+
+{% block title %}
+    Создание альбома
+{% endblock %}
+
+{% block nav %}
+
+{% endblock %}
+
+{% block  content %}
+    <div class="container">
+        <div class="my-5">
+            <h1 class="text-danger">Создание нового альбома</h1>
+        </div>
+        <div>
+            <form method="post">
+                {% include 'partial/form.html' with button_text='Создать' %}
+            </form>
+        </div>
+        <div class="my-3">
+            <a class="btn btn-danger w-30" href={% url 'webapp:photo_index' %}>Отмена</a>
+        </div>
+    </div>
+{% endblock %}

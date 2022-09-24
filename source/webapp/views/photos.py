@@ -12,7 +12,7 @@ class PhotoIndex(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
-        photos = Photo.objects.filter(isPrivate=False).order_by('-created_at')
+        photos = Photo.objects.filter(isPrivate=False).filter(album__isPrivate=False).order_by('-created_at')
         context['photos'] = photos
         return context
 

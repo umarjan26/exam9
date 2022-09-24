@@ -22,7 +22,7 @@
                             <h6 class="card-subtitle mb-2 text-black">Автор: {{ photo.author.first_name }}</h6>
                             <h6 class="card-subtitle mb-2 text-black">Дата создания: {{ photo.created_at }}</h6>
                             {% if photo.album %}
-                                <h6 class="card-subtitle mb-2 text-black">Альбом: {{ photo.album.title }}</h6>
+                                                                <h6 class="card-subtitle mb-2 text-muted">Альбом: <a href="{% url "webapp:album_view" photo.album.pk %}">{{ photo.album.title }}</a></h6>
                             {% else %}
                                 <h6 class="card-subtitle mb-2 text-black">Альбом: НЕТ </h6>
                             {% endif %}
@@ -34,3 +34,4 @@
         </div>
     </div>
 {% endblock %}
+

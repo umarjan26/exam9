@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+    Удаление альбома
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <h2 class="text-danger mt-3">Удалить альбом "{{ album.title }}"</h2>
+            <h3 class="text-danger my-3">Описание: {{ album.description }}</h3>
+            <input class="btn btn-danger w-30 mt-4" type="submit" value="Да">
+        </form>
+        <a class="my-3 btn btn-danger w-30" href="{% url "webapp:album_view" album.pk %}">Нет</a>
+    </div>
+
+{% endblock %}

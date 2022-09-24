@@ -9,7 +9,7 @@ class Album(models.Model):
     description = models.CharField(max_length=500, verbose_name='Описание', null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', related_name='albums')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
-    isPrivate = models.BooleanField(default=False)
+    isPrivate = models.BooleanField(default=False, verbose_name='Приватность')
 
     def __str__(self):
         return f'{self.pk}.{self.title}'
@@ -26,8 +26,7 @@ class Photo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', related_name='photos')
     album = models.ForeignKey('webapp.Album', on_delete=models.CASCADE, verbose_name='Альбом', related_name='photos', null=True, blank=True)
-    isPrivate = models.BooleanField(default=False)
-
+    isPrivate = models.BooleanField(default=False, verbose_name='Приватность')
     class Meta:
         db_table = 'Photos'
         verbose_name = 'Фотография'

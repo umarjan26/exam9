@@ -13,3 +13,8 @@ class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
         fields = ('photo', 'description', 'isPrivate', 'album')
+
+class AlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = ('title', 'description', 'isPrivate')
