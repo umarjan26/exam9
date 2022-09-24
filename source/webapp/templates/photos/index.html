@@ -6,7 +6,7 @@
 
 {% block content %}
     <header>
-        <div class="container  text-danger my-5">
+        <div class="container text-danger my-5">
             <h1>Photos</h1>
         </div>
     </header>
@@ -18,14 +18,17 @@
                         <div class="card-body">
                             <h5 class="card-title">Фотография {{ photo.id }}</h5>
                             <img class="avatar" src="{{ photo.photo.url }}" width="100%" height="200" alt="{{ photo.description }}">
-                            <h6 class="card-subtitle mb-2 text-black mt-3">описание: {{ photo.description }}</h6>
-                            <h6 class="card-subtitle mb-2 text-black">Автор: {{ photo.author.first_name }}</h6>
-                            <h6 class="card-subtitle mb-2 text-black">Дата создания: {{ photo.created_at }}</h6>
+
+                            <h6 class="card-subtitle mb-2 mt-2 text-black">Подпись: {{ photo.description }}</h6>
+                            <h6 class="card-subtitle mb-2 mt-2 text-black">Автор: <a href="{% url 'accounts:detail' photo.author.pk %}">{{ photo.author.first_name }}</a> </h6>
+                            <h6 class="card-subtitle mb-2 mt-2 text-black">Дата создания: {{ photo.created_at }}</h6>
+
                             {% if photo.album %}
-                                                                <h6 class="card-subtitle mb-2 text-muted">Альбом: <a href="{% url "webapp:album_view" photo.album.pk %}">{{ photo.album.title }}</a></h6>
+                                <h6 class="card-subtitle mb-2 mt-2 text-black">Альбом: <a href="{% url "webapp:album_view" photo.album.pk %}">{{ photo.album.title }}</a></h6>
                             {% else %}
-                                <h6 class="card-subtitle mb-2 text-black">Альбом: НЕТ </h6>
+                                <h6 class="card-subtitle mb-2 mt-2 text-black">Альбом: НЕТ </h6>
                             {% endif %}
+
                             <a href="{% url "webapp:photo_view" photo.pk %}" class="text-danger">Подробнее</a>
                         </div>
                     </div>
@@ -34,4 +37,3 @@
         </div>
     </div>
 {% endblock %}
-
