@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block nav %}
+    {% if user_obj == user %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:update' %}">Редактирвоать профиль</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:change_password' %}">Сменить пароль</a>
+        </li>
+    {% endif %}
+{% endblock nav %}
+
+{% block content %}
+    <h1 class="mb-4 mt-3">Личная страница пользователя {{ user_obj.username }}</h1>
+
+    <p>Имя пользователя: {{ user_obj.username }}</p>
+    <p>Имя: {{ user_obj.first_name }}</p>
+    <p>Фамилия: {{ user_obj.last_name }}</p>
+    <p>Почта: {{ user_obj.email }}</p>
+
+{% endblock %}

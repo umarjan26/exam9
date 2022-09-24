@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% if user_object == user %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:change_password' %}">Сменить пароль</a>
+        </li>
+    {% endif %}
+{% endblock nav %}
+
+{% block content %}
+    <form method="post">
+        {% include 'partial/form.html' with button_text='Сохранить' %}
+    </form>
+    <a class="my-3 btn btn-danger w-30" href="{% url "accounts:detail" user.pk %}">Отмена</a>
+{% endblock content %}
