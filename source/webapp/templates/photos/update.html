@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Изменение фото
+{% endblock %}
+
+{% block nav %}
+
+{% endblock %}
+
+{% block  content %}
+    <div class="container">
+        <div class="my-5">
+            <h1 class="text-danger">Изменение фото</h1>
+        </div>
+        <div>
+            <form method="post" enctype="multipart/form-data">
+                {% include 'partial/form.html' with button_text='Изменить' %}
+            </form>
+        </div>
+        <div class="my-3">
+            <a class="btn btn-danger w-30" href={% url 'webapp:photo_view' photo.pk %}>Отмена</a>
+        </div>
+    </div>
+{% endblock %}
