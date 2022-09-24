@@ -27,6 +27,8 @@ class Photo(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', related_name='photos')
     album = models.ForeignKey('webapp.Album', on_delete=models.CASCADE, verbose_name='Альбом', related_name='photos', null=True, blank=True)
     isPrivate = models.BooleanField(default=False, verbose_name='Приватность')
+    token = models.CharField(max_length=100, null=True, blank=True, unique=True)
+
     class Meta:
         db_table = 'Photos'
         verbose_name = 'Фотография'
