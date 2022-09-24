@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -6,7 +7,7 @@ from webapp.forms import PhotoForm
 from webapp.models import Photo
 
 
-class PhotoIndex(ListView):
+class PhotoIndex(LoginRequiredMixin, ListView):
     model = Photo
     template_name = 'photos/index.html'
 
@@ -17,12 +18,12 @@ class PhotoIndex(ListView):
         return context
 
 
-class PhotoView(DetailView):
+class PhotoView(LoginRequiredMixin, DetailView):
     model = Photo
     template_name = 'photos/view.html'
 
 
-class PhotoCreateView(CreateView):
+class PhotoCreateView(LoginRequiredMixin, CreateView):
     model = Photo
     form_class = PhotoForm
     template_name = 'photos/create.html'
@@ -42,10 +43,12 @@ class PhotoCreateView(CreateView):
         return kwargs
 
 
-class PhotoUpdateView(UpdateView):
+class PhotoUpdateView(PermissionRequiredMixin, UpdateView):
     model = Photo
     template_name = 'photos/update.html'
     form_class = PhotoForm
+    permission_required = 'webapp.change_photo'
+
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -55,10 +58,23 @@ class PhotoUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('webapp:photo_view', kwargs={'pk': self.object.pk})
 
+    def has_permission(self):
+        photo = get_object_or_404(Photo, pk=self.kwargs.get('pk'))
+        return super().has_permission() or self.request.user == photo.author
 
-class PhotoDeleteView(DeleteView):
+
+
+class PhotoDeleteView(PermissionRequiredMixin, DeleteView):
     model = Photo
     template_name = "photos/delete.html"
+    permission_required = 'webapp.delete_photo'
+
 
     def get_success_url(self):
         return reverse('webapp:photo_index')
+
+
+
+    def has_permission(self):
+        photo = get_object_or_404(Photo, pk=self.kwargs.get('pk'))
+        return super().has_permission() or self.request.user == photo.author

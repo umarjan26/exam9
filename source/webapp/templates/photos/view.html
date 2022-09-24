@@ -4,12 +4,16 @@
     Photo {{ photo.pk }}
 {% endblock %}
 {% block nav %}
+    {% if perms.webapp.change_photo %}
             <li class="nav-item">
                 <a class="nav-link" href={% url 'webapp:photo_update' photo.pk %}>Изменить фотографию</a>
             </li>
+        {% endif %}
+        {% if perms.webapp.delete_photo %}
             <li class="nav-item">
                 <a class="nav-link text-danger" href={% url 'webapp:photo_delete' photo.pk %}>Удалить фотографию</a>
             </li>
+        {% endif %}
 {% endblock %}
 {% block content %}
     <div class="container">

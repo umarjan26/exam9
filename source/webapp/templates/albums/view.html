@@ -3,12 +3,16 @@
     Альбом {{ album.pk }}
 {% endblock %}
 {% block nav %}
+        {% if perms.webapp.change_album %}
             <li class="nav-item">
                 <a class="nav-link" href={% url 'webapp:album_update' album.pk %}>Изменить альбом</a>
             </li>
+        {% endif %}
+        {% if perms.webapp.delete_album %}
             <li class="nav-item">
                 <a class="nav-link text-danger" href={% url 'webapp:album_delete' album.pk %}>Удалить альбом</a>
             </li>
+        {% endif %}
 {% endblock %}
 {% block content %}
     <div class="container">
