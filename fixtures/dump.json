@@ -1,0 +1,162 @@
+[
+{
+    "model": "webapp.album",
+    "pk": 8,
+    "fields": {
+        "title": "album1",
+        "description": "album1",
+        "author": 1,
+        "created_at": "2022-09-24T13:47:55.961Z",
+        "isPrivate": false,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.album",
+    "pk": 9,
+    "fields": {
+        "title": "album2",
+        "description": "album2",
+        "author": 1,
+        "created_at": "2022-09-24T13:48:07.772Z",
+        "isPrivate": true,
+        "selected": [
+            1
+        ]
+    }
+},
+{
+    "model": "webapp.album",
+    "pk": 10,
+    "fields": {
+        "title": "sdfdfsd",
+        "description": "sfdfsdfs",
+        "author": 1,
+        "created_at": "2022-09-24T15:31:34.705Z",
+        "isPrivate": true,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.album",
+    "pk": 11,
+    "fields": {
+        "title": "umar3",
+        "description": "umar3",
+        "author": 1,
+        "created_at": "2022-09-24T15:32:15.954Z",
+        "isPrivate": false,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.album",
+    "pk": 12,
+    "fields": {
+        "title": "casdcd",
+        "description": "scdcsdcc",
+        "author": 4,
+        "created_at": "2022-09-24T15:44:56.440Z",
+        "isPrivate": false,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.photo",
+    "pk": 7,
+    "fields": {
+        "photo": "pictures/вс_PUVLEvI.png",
+        "description": "sdasds",
+        "created_at": "2022-09-24T13:48:24.060Z",
+        "author": 1,
+        "album": 8,
+        "isPrivate": false,
+        "token": "2f9de52a-5cd6-402a-a95f-7922ba67aab6",
+        "selected": []
+    }
+},
+{
+    "model": "webapp.photo",
+    "pk": 8,
+    "fields": {
+        "photo": "pictures/Screenshot_1.png",
+        "description": "csdcsdc",
+        "created_at": "2022-09-24T13:48:43.016Z",
+        "author": 1,
+        "album": 9,
+        "isPrivate": true,
+        "token": null,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.photo",
+    "pk": 9,
+    "fields": {
+        "photo": "pictures/вс_fSiykW2.png",
+        "description": "fcsdfsd",
+        "created_at": "2022-09-24T15:31:57.816Z",
+        "author": 1,
+        "album": 10,
+        "isPrivate": true,
+        "token": null,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.photo",
+    "pk": 10,
+    "fields": {
+        "photo": "pictures/Screenshot_1_VLIo1U1.png",
+        "description": "задачча1",
+        "created_at": "2022-09-24T15:32:35.241Z",
+        "author": 1,
+        "album": 11,
+        "isPrivate": false,
+        "token": null,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.photo",
+    "pk": 11,
+    "fields": {
+        "photo": "pictures/вс.png",
+        "description": "dfgdf",
+        "created_at": "2022-09-24T15:42:17.662Z",
+        "author": 1,
+        "album": 9,
+        "isPrivate": false,
+        "token": null,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.photo",
+    "pk": 12,
+    "fields": {
+        "photo": "pictures/Screenshot_1.png",
+        "description": "cdscsd",
+        "created_at": "2022-09-24T15:42:46.321Z",
+        "author": 1,
+        "album": 8,
+        "isPrivate": false,
+        "token": null,
+        "selected": []
+    }
+},
+{
+    "model": "webapp.photo",
+    "pk": 13,
+    "fields": {
+        "photo": "pictures/вс_4li7NFl.png",
+        "description": "задача2",
+        "created_at": "2022-09-24T15:45:09.085Z",
+        "author": 4,
+        "album": 12,
+        "isPrivate": false,
+        "token": null,
+        "selected": []
+    }
+}
+]

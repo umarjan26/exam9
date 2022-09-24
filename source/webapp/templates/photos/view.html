@@ -54,6 +54,11 @@
                     </h6>
                 {% endif %}
             {% endif %}
+                    <h6 class="card-subtitle mb-2 text-black">В избранных у:</h6>
+            {% for user in photo.selected.all %}
+                <p><a href="{% url 'accounts:detail' user.pk %}">{{ user.first_name }}</a></p>
+            {% endfor %}
+
         </div>
     </div>
     <script>

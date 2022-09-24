@@ -92,6 +92,12 @@ class GeneratePhotoLinkView(View):
         photo.save()
         return redirect('webapp:photo_view', photo.pk)
 
+    def has_permission(self):
+        photo = get_object_or_404(Photo, pk=self.kwargs.get('pk'))
+        return self.request.user == photo.author
+
+
+
 
 class PhotoLinkView(View):
     def get(self, request, *args, **kwargs):

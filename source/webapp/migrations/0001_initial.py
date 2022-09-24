@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             name='Photo',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('photo', models.ImageField(upload_to='pictures', verbose_name='Фотография')),
+                ('photo', models.ImageField(upload_to='uploads', verbose_name='Фотография')),
                 ('description', models.CharField(max_length=500, verbose_name='Описание')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
                 ('isPrivate', models.BooleanField(default=False)),

@@ -38,6 +38,10 @@
                        href="{% url "webapp:unselect_album" album.pk %}">Удалить</a>
                 {% endif %}
             {% endif %}
+                    <h6 class="card-subtitle mb-2 text-black">В избранных у:</h6>
+            {% for user in album.selected.all %}
+                <p><a href="{% url 'accounts:detail' user.pk %}">{{ user.first_name }}</a></p>
+            {% endfor %}
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
             {% for photo in photos %}
